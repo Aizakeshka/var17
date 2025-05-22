@@ -1,38 +1,26 @@
 package com.example.var17;
 
 public class Pvz {
-    private String addressDivision;
-    private String address;
-    private double latitude;
-    private double longitude;
-    private boolean isWarehouseAcceptsFreights;
-    private boolean isWarehouseGivesFreights;
+    private final String city;
+    private final String address;
+    private final String type;
 
-    public String getCity() {
-        return addressDivision;
+    public Pvz(PvzJson pvzJson) {
+        this.city = pvzJson.addressDivision;
+        this.address = pvzJson.address;
+
+        if (pvzJson.isWarehouseAcceptsFreights && pvzJson.isWarehouseGivesFreights) {
+            this.type = "Оба";
+        } else if (pvzJson.isWarehouseAcceptsFreights) {
+            this.type = "Приём";
+        } else if (pvzJson.isWarehouseGivesFreights) {
+            this.type = "Выдача";
+        } else {
+            this.type = "Неизвестно";
+        }
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public String getCoordinates() {
-        return latitude + ", " + longitude;
-    }
-
-    public String getType() {
-        if (isWarehouseAcceptsFreights && isWarehouseGivesFreights) return "Приём, Выдача";
-        if (isWarehouseAcceptsFreights) return "Приём";
-        if (isWarehouseGivesFreights) return "Выдача";
-        return "Неизвестно";
-    }
-
-    public double getLatitude() {
-        return latitude;
-    }
-
-    public double getLongitude() {
-        return longitude;
-    }
+    public String getCity() { return city; }
+    public String getAddress() { return address; }
+    public String getType() { return type; }
 }
-
